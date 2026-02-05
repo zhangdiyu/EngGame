@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>ABC - 字母学习</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    }
+
+    .modal-content {
+      padding: 40px 30px;
+    }
+
+    .modal-emoji {
+      font-size: 100px;
+      margin: 15px 0;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .modal-emoji:active {
+      transform: scale(0.9);
+    }
+
+    .modal-word-container {
+      background: #f8f9fa;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 15px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modal-word-container:active {
+      background: #e9ecef;
+      transform: scale(0.98);
+    }
+
+    .modal-word {
+      font-size: 32px;
+      color: #333;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .modal-chinese {
+      font-size: 24px;
+      color: #666;
+    }
+
+    .tap-hint {
+      font-size: 14px;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    .tap-hint i {
+      margin-right: 5px;
+    }
+
+    .sound-playing {
+      animation: soundWave 0.5s ease-in-out;
+    }
+
+    @keyframes soundWave {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">🔤</div>
+      <h1 class="page-title">Learn the Alphabet</h1>
+    </div>
+
+    <div class="card-grid" id="letterGrid">
+      <!-- 字母卡片将通过JS生成 -->
+    </div>
+  </div>
+
+  <!-- 字母详情弹窗 -->
+  <div class="modal" id="letterModal">
+    <div class="modal-content">
+      <div class="modal-letter" id="modalLetter">A</div>
+      <div class="modal-letter-small" id="modalLetterSmall">a</div>
+
+      <!-- 可点击的图片区域 -->
+      <div class="modal-emoji" id="modalEmoji" onclick="playWordSound()">🍎</div>
+
+      <!-- 可点击的单词区域 -->
+      <div class="modal-word-container" id="wordContainer" onclick="playWordSound()">
+        <div class="modal-word" id="modalWord">Apple</div>
+        <div class="modal-chinese" id="modalChinese">苹果</div>
+        <div class="tap-hint"><i class="fa-solid fa-volume-high"></i>点击播放发音</div>
+      </div>
+
+      <button class="modal-close" onclick="closeModal()">
+        <i class="fa-solid fa-check"></i> OK
+      </button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+
+  <script src="js/speech.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    const letterGrid = document.getElementById('letterGrid');
+    const modal = document.getElementById('letterModal');
+    let currentItem = null;
+
+    // 生成字母卡片
+    function renderLetters() {
+      LearningData.letters.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-letter" style="color: ${item.color}">${item.letter}</div>
+          <div class="card-letter-small">${item.letter.toLowerCase()}</div>
+        `;
+        card.addEventListener('click', () => showLetter(item));
+        letterGrid.appendChild(card);
+      });
+    }
+
+    // 显示字母详情
+    function showLetter(item) {
+      currentItem = item;
+      document.getElementById('modalLetter').textContent = item.letter;
+      document.getElementById('modalLetter').style.color = item.color;
+      document.getElementById('modalLetterSmall').textContent = item.letter.toLowerCase();
+      document.getElementById('modalEmoji').textContent = item.emoji;
+      document.getElementById('modalWord').textContent = item.word;
+      document.getElementById('modalChinese').textContent = item.chinese;
+
+      modal.classList.add('show');
+
+      // 自动播放字母发音
+      SpeechModule.speakLetter(item.letter, item.word);
+    }
+
+    // 播放单词的中英文发音
+    async function playWordSound() {
+      if (!currentItem) return;
+
+      const emoji = document.getElementById('modalEmoji');
+      const container = document.getElementById('wordContainer');
+
+      // 添加播放动画
+      emoji.classList.add('sound-playing');
+      container.classList.add('sound-playing');
+
+      // 播放中英文
+      await SpeechModule.speakWord(currentItem.word, currentItem.chinese);
+
+      // 移除动画
+      emoji.classList.remove('sound-playing');
+      container.classList.remove('sound-playing');
+    }
+
+    // 关闭弹窗
+    function closeModal() {
+      modal.classList.remove('show');
+      SpeechModule.stop();
+      currentItem = null;
+    }
+
+    // 点击弹窗背景关闭
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // 初始化
+    renderLetters();
+  </script>
+</body>
+</html>

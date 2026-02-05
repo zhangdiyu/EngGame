@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Icons Verification</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        h1 { text-align: center; color: #333; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .card { background: white; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .card img, .card object { width: 64px; height: 64px; margin-bottom: 10px; }
+        .card .name { font-size: 12px; color: #333; font-weight: bold; }
+        .card .chinese { font-size: 11px; color: #666; }
+        .card .file { font-size: 10px; color: #999; word-break: break-all; }
+        .card.missing { background: #ffe0e0; }
+        .status { text-align: center; margin: 20px 0; padding: 15px; background: white; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Vehicle Icons Verification Page</h1>
+    <div class="status">
+        <p>Check each icon to ensure it matches the vehicle name.</p>
+        <p>Red background = missing file</p>
+    </div>
+    <div class="grid">
+
+        <div class="card ">
+            <object data="images/vehicles/suv.svg" type="image/svg+xml"></object>
+            <div class="name">sport-utility-vehicle</div>
+            <div class="chinese">SUV越野车</div>
+            <div class="file">suv.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/sedan.svg" type="image/svg+xml"></object>
+            <div class="name">automobile</div>
+            <div class="chinese">轿车</div>
+            <div class="file">sedan.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">convertible</div>
+            <div class="chinese">敞篷车</div>
+            <div class="file">convertible.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/minivan.svg" type="image/svg+xml"></object>
+            <div class="name">minibus</div>
+            <div class="chinese">小型货车</div>
+            <div class="file">minivan.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/electric-car.svg" type="image/svg+xml"></object>
+            <div class="name">automobile</div>
+            <div class="chinese">电动汽车</div>
+            <div class="file">electric-car.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/vintage-car.svg" type="image/svg+xml"></object>
+            <div class="name">automobile</div>
+            <div class="chinese">老爷车</div>
+            <div class="file">vintage-car.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">limousine</div>
+            <div class="chinese">豪华轿车</div>
+            <div class="file">limousine.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/jeep.svg" type="image/svg+xml"></object>
+            <div class="name">sport-utility-vehicle</div>
+            <div class="chinese">吉普车</div>
+            <div class="file">jeep.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/hatchback.svg" type="image/svg+xml"></object>
+            <div class="name">automobile</div>
+            <div class="chinese">掀背车</div>
+            <div class="file">hatchback.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/moving-truck.svg" type="image/svg+xml"></object>
+            <div class="name">articulated-lorry</div>
+            <div class="chinese">搬家车</div>
+            <div class="file">moving-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/semi-truck.svg" type="image/svg+xml"></object>
+            <div class="name">articulated-lorry</div>
+            <div class="chinese">半挂车</div>
+            <div class="file">semi-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">tankertruck</div>
+            <div class="chinese">油罐车</div>
+            <div class="file">tanker-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">dumptruck</div>
+            <div class="chinese">自卸车</div>
+            <div class="file">dump-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">garbagetruck</div>
+            <div class="chinese">垃圾车</div>
+            <div class="file">garbage-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">icecreamtruck</div>
+            <div class="chinese">冰淇淋车</div>
+            <div class="file">ice-cream-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/food-truck.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">餐车</div>
+            <div class="file">food-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">towtruck</div>
+            <div class="chinese">拖车</div>
+            <div class="file">tow-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/flatbed-truck.svg" type="image/svg+xml"></object>
+            <div class="name">pickup-truck</div>
+            <div class="chinese">平板车</div>
+            <div class="file">flatbed-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/box-truck.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">厢式货车</div>
+            <div class="file">box-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">cementmixer</div>
+            <div class="chinese">水泥搅拌车</div>
+            <div class="file">cement-mixer.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/logging-truck.svg" type="image/svg+xml"></object>
+            <div class="name">articulated-lorry</div>
+            <div class="chinese">运木车</div>
+            <div class="file">logging-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/cargo-truck.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">货运卡车</div>
+            <div class="file">cargo-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">doubledeckerbus</div>
+            <div class="chinese">双层巴士</div>
+            <div class="file">double-decker-bus.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/minibus.svg" type="image/svg+xml"></object>
+            <div class="name">minibus</div>
+            <div class="chinese">小巴</div>
+            <div class="file">minibus.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/coach.svg" type="image/svg+xml"></object>
+            <div class="name">bus</div>
+            <div class="chinese">长途客车</div>
+            <div class="file">coach.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/shuttle-bus.svg" type="image/svg+xml"></object>
+            <div class="name">bus</div>
+            <div class="chinese">班车</div>
+            <div class="file">shuttle-bus.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/airport-bus.svg" type="image/svg+xml"></object>
+            <div class="name">bus</div>
+            <div class="chinese">机场巴士</div>
+            <div class="file">airport-bus.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/tour-bus.svg" type="image/svg+xml"></object>
+            <div class="name">bus</div>
+            <div class="chinese">旅游大巴</div>
+            <div class="file">tour-bus.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/city-bus.svg" type="image/svg+xml"></object>
+            <div class="name">bus</div>
+            <div class="chinese">城市公交</div>
+            <div class="file">city-bus.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/black-cab.svg" type="image/svg+xml"></object>
+            <div class="name">taxi</div>
+            <div class="chinese">黑色出租车</div>
+            <div class="file">black-cab.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/police-van.svg" type="image/svg+xml"></object>
+            <div class="name">police-car</div>
+            <div class="chinese">警用面包车</div>
+            <div class="file">police-van.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/swat-truck.svg" type="image/svg+xml"></object>
+            <div class="name">police-car</div>
+            <div class="chinese">特警车</div>
+            <div class="file">swat-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/rescue-vehicle.svg" type="image/svg+xml"></object>
+            <div class="name">ambulance</div>
+            <div class="chinese">救援车</div>
+            <div class="file">rescue-vehicle.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/ladder-truck.svg" type="image/svg+xml"></object>
+            <div class="name">fire-engine</div>
+            <div class="chinese">云梯消防车</div>
+            <div class="file">ladder-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/armored-car.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">装甲车</div>
+            <div class="file">armored-car.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">excavator</div>
+            <div class="chinese">挖掘机</div>
+            <div class="file">excavator.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">bulldozer</div>
+            <div class="chinese">推土机</div>
+            <div class="file">bulldozer.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">crane</div>
+            <div class="chinese">起重机</div>
+            <div class="file">crane.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">forklift</div>
+            <div class="chinese">叉车</div>
+            <div class="file">forklift.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">steamroller</div>
+            <div class="chinese">压路机</div>
+            <div class="file">roller.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">excavator</div>
+            <div class="chinese">反铲挖掘机</div>
+            <div class="file">backhoe.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">frontloader</div>
+            <div class="chinese">装载机</div>
+            <div class="file">loader.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">grader</div>
+            <div class="chinese">平地机</div>
+            <div class="file">grader.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/paver.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">铺路机</div>
+            <div class="file">paver.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">crane</div>
+            <div class="chinese">打桩机</div>
+            <div class="file">pile-driver.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">cementmixer</div>
+            <div class="chinese">混凝土泵车</div>
+            <div class="file">concrete-pump.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">towercrane</div>
+            <div class="chinese">塔吊</div>
+            <div class="file">tower-crane.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">frontloader</div>
+            <div class="chinese">滑移装载机</div>
+            <div class="file">skid-steer.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">steamroller</div>
+            <div class="chinese">压实机</div>
+            <div class="file">compactor.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/asphalt-truck.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">沥青车</div>
+            <div class="file">asphalt-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">harvester</div>
+            <div class="chinese">收割机</div>
+            <div class="file">harvester.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">harvester</div>
+            <div class="chinese">联合收割机</div>
+            <div class="file">combine.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/plow.svg" type="image/svg+xml"></object>
+            <div class="name">tractor</div>
+            <div class="chinese">犁车</div>
+            <div class="file">plow.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/seeder.svg" type="image/svg+xml"></object>
+            <div class="name">tractor</div>
+            <div class="chinese">播种机</div>
+            <div class="file">seeder.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/sprayer.svg" type="image/svg+xml"></object>
+            <div class="name">tractor</div>
+            <div class="chinese">喷药车</div>
+            <div class="file">sprayer.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">harvester</div>
+            <div class="chinese">打包机</div>
+            <div class="file">baler.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/farm-truck.svg" type="image/svg+xml"></object>
+            <div class="name">pickup-truck</div>
+            <div class="chinese">农用卡车</div>
+            <div class="file">farm-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">racing-motorcycle</div>
+            <div class="chinese">全地形车</div>
+            <div class="file">atv.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/utv.svg" type="image/svg+xml"></object>
+            <div class="name">sport-utility-vehicle</div>
+            <div class="chinese">多功能车</div>
+            <div class="file">utv.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/dirt-bike.svg" type="image/svg+xml"></object>
+            <div class="name">motorcycle</div>
+            <div class="chinese">越野摩托</div>
+            <div class="file">dirt-bike.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/chopper.svg" type="image/svg+xml"></object>
+            <div class="name">motorcycle</div>
+            <div class="chinese">哈雷摩托</div>
+            <div class="file">chopper.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">racing-motorcycle</div>
+            <div class="chinese">运动摩托</div>
+            <div class="file">sport-bike.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/cruiser.svg" type="image/svg+xml"></object>
+            <div class="name">motorcycle</div>
+            <div class="chinese">巡航摩托</div>
+            <div class="file">cruiser.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/moped.svg" type="image/svg+xml"></object>
+            <div class="name">motor-scooter</div>
+            <div class="chinese">轻便摩托</div>
+            <div class="file">moped.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/sidecar.svg" type="image/svg+xml"></object>
+            <div class="name">motorcycle</div>
+            <div class="chinese">边三轮</div>
+            <div class="file">sidecar.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">racing-motorcycle</div>
+            <div class="chinese">四轮摩托</div>
+            <div class="file">quad-bike.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">mountain-bicyclist</div>
+            <div class="chinese">山地车</div>
+            <div class="file">mountain-bike.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/road-bike.svg" type="image/svg+xml"></object>
+            <div class="name">bicycle</div>
+            <div class="chinese">公路车</div>
+            <div class="file">road-bike.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">bicyclist</div>
+            <div class="chinese">小轮车</div>
+            <div class="file">bmx.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">tricycle</div>
+            <div class="chinese">三轮车</div>
+            <div class="file">tricycle.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/tandem-bike.svg" type="image/svg+xml"></object>
+            <div class="name">bicycle</div>
+            <div class="chinese">双人自行车</div>
+            <div class="file">tandem-bike.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/electric-bike.svg" type="image/svg+xml"></object>
+            <div class="name">bicycle</div>
+            <div class="chinese">电动自行车</div>
+            <div class="file">electric-bike.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/kids-bike.svg" type="image/svg+xml"></object>
+            <div class="name">bicycle</div>
+            <div class="chinese">儿童自行车</div>
+            <div class="file">kids-bike.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">unicycle</div>
+            <div class="chinese">独轮车</div>
+            <div class="file">unicycle.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/cargo-bike.svg" type="image/svg+xml"></object>
+            <div class="name">bicycle</div>
+            <div class="chinese">载货自行车</div>
+            <div class="file">cargo-bike.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/diesel-train.svg" type="image/svg+xml"></object>
+            <div class="name">locomotive</div>
+            <div class="chinese">内燃机车</div>
+            <div class="file">diesel-train.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/electric-train.svg" type="image/svg+xml"></object>
+            <div class="name">high-speed-train</div>
+            <div class="chinese">电力机车</div>
+            <div class="file">electric-train.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/space-shuttle.svg" type="image/svg+xml"></object>
+            <div class="name">rocket</div>
+            <div class="chinese">航天飞机</div>
+            <div class="file">space-shuttle.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">blimp</div>
+            <div class="chinese">飞艇</div>
+            <div class="file">blimp.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/glider.svg" type="image/svg+xml"></object>
+            <div class="name">small-airplane</div>
+            <div class="chinese">滑翔机</div>
+            <div class="file">glider.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/biplane.svg" type="image/svg+xml"></object>
+            <div class="name">small-airplane</div>
+            <div class="chinese">双翼飞机</div>
+            <div class="file">biplane.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/seaplane.svg" type="image/svg+xml"></object>
+            <div class="name">small-airplane</div>
+            <div class="chinese">水上飞机</div>
+            <div class="file">seaplane.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/cargo-plane.svg" type="image/svg+xml"></object>
+            <div class="name">airplane</div>
+            <div class="chinese">货机</div>
+            <div class="file">cargo-plane.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">drone</div>
+            <div class="chinese">无人机</div>
+            <div class="file">drone.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/hang-glider.svg" type="image/svg+xml"></object>
+            <div class="name">parachute</div>
+            <div class="chinese">悬挂滑翔机</div>
+            <div class="file">hang-glider.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/yacht.svg" type="image/svg+xml"></object>
+            <div class="name">motor-boat</div>
+            <div class="chinese">游艇</div>
+            <div class="file">yacht.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/rowboat.svg" type="image/svg+xml"></object>
+            <div class="name">canoe</div>
+            <div class="chinese">划艇</div>
+            <div class="file">rowboat.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">fishingboat</div>
+            <div class="chinese">渔船</div>
+            <div class="file">fishing-boat.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">tugboat</div>
+            <div class="chinese">拖船</div>
+            <div class="file">tugboat.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/cargo-ship.svg" type="image/svg+xml"></object>
+            <div class="name">ship</div>
+            <div class="chinese">货船</div>
+            <div class="file">cargo-ship.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">submarine</div>
+            <div class="chinese">潜水艇</div>
+            <div class="file">submarine.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/houseboat.svg" type="image/svg+xml"></object>
+            <div class="name">passenger-ship</div>
+            <div class="chinese">船屋</div>
+            <div class="file">houseboat.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">jetski</div>
+            <div class="chinese">水上摩托</div>
+            <div class="file">jet-ski.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/raft.svg" type="image/svg+xml"></object>
+            <div class="name">canoe</div>
+            <div class="chinese">木筏</div>
+            <div class="file">raft.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/lifeboat.svg" type="image/svg+xml"></object>
+            <div class="name">motor-boat</div>
+            <div class="chinese">救生艇</div>
+            <div class="file">lifeboat.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">hovercraft</div>
+            <div class="chinese">气垫船</div>
+            <div class="file">hovercraft.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/golf-cart.svg" type="image/svg+xml"></object>
+            <div class="name">automobile</div>
+            <div class="chinese">高尔夫球车</div>
+            <div class="file">golf-cart.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/go-kart.svg" type="image/svg+xml"></object>
+            <div class="name">racing-car</div>
+            <div class="chinese">卡丁车</div>
+            <div class="file">go-kart.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">snowmobile</div>
+            <div class="chinese">雪地摩托</div>
+            <div class="file">snowmobile.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/snow-plow.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">除雪车</div>
+            <div class="file">snow-plow.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/street-sweeper.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">清扫车</div>
+            <div class="file">street-sweeper.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/mail-truck.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">邮政车</div>
+            <div class="file">mail-truck.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">campervan</div>
+            <div class="chinese">房车</div>
+            <div class="file">camper-van.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">recreational-vehicle</div>
+            <div class="chinese">旅居车</div>
+            <div class="file">rv.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">stroller</div>
+            <div class="chinese">婴儿车</div>
+            <div class="file">stroller.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">horsewagon</div>
+            <div class="chinese">马车</div>
+            <div class="file">wagon.svg</div>
+        </div>
+
+        <div class="card missing">
+            <div style="width:64px;height:64px;background:#ddd;margin:0 auto 10px;border-radius:10px;">?</div>
+            <div class="name">tank</div>
+            <div class="chinese">坦克</div>
+            <div class="file">tank.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/army-truck.svg" type="image/svg+xml"></object>
+            <div class="name">delivery-truck</div>
+            <div class="chinese">军用卡车</div>
+            <div class="file">army-truck.svg</div>
+        </div>
+
+        <div class="card ">
+            <object data="images/vehicles/amphibious.svg" type="image/svg+xml"></object>
+            <div class="name">sport-utility-vehicle</div>
+            <div class="chinese">两栖车</div>
+            <div class="file">amphibious.svg</div>
+        </div>
+
+    </div>
+</body>
+</html>

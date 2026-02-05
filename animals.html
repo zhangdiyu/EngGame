@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Animals - 动物学习</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #96e6a1 0%, #d4fc79 100%);
+    }
+
+    .card-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .animal-card {
+      min-height: 180px;
+      background: white;
+    }
+
+    .animal-card:active {
+      transform: scale(0.95);
+    }
+
+    .animal-card.active {
+      animation: animalBounce 0.5s ease-out;
+    }
+
+    .animal-emoji {
+      font-size: 70px;
+      margin-bottom: 10px;
+      transition: transform 0.3s;
+    }
+
+    .animal-card:active .animal-emoji {
+      transform: scale(1.1);
+    }
+
+    .animal-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .animal-chinese {
+      font-size: 16px;
+      color: #666;
+    }
+
+    @keyframes animalBounce {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.1) rotate(-5deg); }
+      60% { transform: scale(1.1) rotate(5deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">🐾</div>
+      <h1 class="page-title">Learn Animals</h1>
+    </div>
+
+    <div class="card-grid" id="animalGrid">
+      <!-- 动物卡片将通过JS生成 -->
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+
+  <script src="js/speech.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    const animalGrid = document.getElementById('animalGrid');
+
+    // 生成动物卡片
+    function renderAnimals() {
+      LearningData.animals.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'card animal-card';
+
+        card.innerHTML = `
+          <div class="animal-emoji">${item.emoji}</div>
+          <div class="animal-name">${item.name}</div>
+          <div class="animal-chinese">${item.chinese}</div>
+        `;
+
+        card.addEventListener('click', async () => {
+          // 添加活跃状态
+          card.classList.add('active');
+          setTimeout(() => card.classList.remove('active'), 500);
+
+          // 播放中英文发音
+          await SpeechModule.speakBilingual(item.name, item.chinese);
+        });
+
+        animalGrid.appendChild(card);
+      });
+    }
+
+    // 初始化
+    renderAnimals();
+  </script>
+</body>
+</html>

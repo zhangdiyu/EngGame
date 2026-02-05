@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>ABC Learning - 幼儿英语学习</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .welcome-icon {
+      font-size: 80px;
+      animation: bounce 2s infinite;
+      margin-bottom: 15px;
+    }
+
+    .welcome-text {
+      font-size: 32px;
+      color: white;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .nav-grid {
+      max-width: 600px;
+    }
+
+    .nav-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .nav-card:active::after {
+      opacity: 1;
+    }
+
+    /* 测验入口特殊样式 */
+    .quiz-entry {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .quiz-entry i,
+    .quiz-entry span {
+      color: white !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome">
+    <div class="welcome-icon">🎈</div>
+    <div class="welcome-text">Let's Learn English!</div>
+  </div>
+
+  <div class="nav-grid">
+    <!-- 字母学习 -->
+    <a href="letters.html" class="nav-card letters">
+      <i class="fa-solid fa-font"></i>
+      <span>ABC</span>
+    </a>
+
+    <!-- 数字学习 -->
+    <a href="numbers.html" class="nav-card numbers">
+      <i class="fa-solid fa-calculator"></i>
+      <span>123</span>
+    </a>
+
+    <!-- 颜色学习 -->
+    <a href="colors.html" class="nav-card colors">
+      <i class="fa-solid fa-palette"></i>
+      <span>Colors</span>
+    </a>
+
+    <!-- 动物学习 -->
+    <a href="animals.html" class="nav-card animals">
+      <i class="fa-solid fa-paw"></i>
+      <span>Animals</span>
+    </a>
+
+    <!-- 交通工具学习 -->
+    <a href="vehicles.html" class="nav-card vehicles">
+      <i class="fa-solid fa-car"></i>
+      <span>Vehicles</span>
+    </a>
+
+    <!-- 听音选图测验 -->
+    <a href="listen-quiz.html" class="nav-card quiz-entry">
+      <i class="fa-solid fa-headphones"></i>
+      <span>Listen Quiz</span>
+    </a>
+
+    <!-- 原有测验游戏 -->
+    <a href="quiz.html" class="nav-card quiz-entry" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+      <i class="fa-solid fa-gamepad"></i>
+      <span>Word Quiz</span>
+    </a>
+  </div>
+
+  <script src="js/speech.js"></script>
+  <script>
+    // 页面加载完成后播放欢迎语
+    document.addEventListener('DOMContentLoaded', () => {
+      // 延迟一点再播放，确保语音模块就绪
+      setTimeout(() => {
+        // 首次访问时不自动播放，需要用户交互
+      }, 500);
+    });
+
+    // 点击导航卡片时的反馈
+    document.querySelectorAll('.nav-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        // 添加点击音效反馈（可选）
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

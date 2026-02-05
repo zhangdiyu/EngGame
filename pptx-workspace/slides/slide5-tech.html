@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #f8f9fa;
+}
+.container {
+  width: 100%; height: 100%;
+  padding: 28pt 40pt;
+  box-sizing: border-box;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12pt;
+  margin-bottom: 25pt;
+}
+.header-icon {
+  width: 40pt; height: 40pt;
+  background: #9b59b6;
+  border-radius: 10pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-icon p {
+  color: #ffffff;
+  font-size: 20pt;
+  margin: 0;
+}
+h1 {
+  color: #2c3e50;
+  font-size: 28pt;
+  margin: 0;
+}
+.content {
+  display: flex;
+  gap: 30pt;
+}
+.tech-stack {
+  flex: 1;
+}
+.tech-item {
+  background: #ffffff;
+  border-radius: 12pt;
+  padding: 12pt 18pt;
+  margin-bottom: 10pt;
+  display: flex;
+  align-items: center;
+  gap: 12pt;
+  box-shadow: 0 2pt 8pt rgba(0,0,0,0.08);
+}
+.tech-icon {
+  width: 40pt; height: 40pt;
+  background: #667eea;
+  border-radius: 10pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.tech-icon p {
+  color: #ffffff;
+  font-size: 18pt;
+  margin: 0;
+}
+.tech-info h3 {
+  color: #2c3e50;
+  font-size: 14pt;
+  margin: 0 0 4pt 0;
+}
+.tech-info p {
+  color: #666;
+  font-size: 11pt;
+  margin: 0;
+}
+.advantages {
+  width: 250pt;
+}
+.adv-card {
+  background: #667eea;
+  border-radius: 15pt;
+  padding: 25pt;
+}
+.adv-card h3 {
+  color: #ffffff;
+  font-size: 16pt;
+  margin: 0 0 15pt 0;
+}
+.adv-card ul {
+  margin: 0;
+  padding-left: 18pt;
+}
+.adv-card li {
+  color: rgba(255,255,255,0.95);
+  font-size: 12pt;
+  margin-bottom: 10pt;
+  line-height: 1.4;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-icon"><p>⚙</p></div>
+    <h1>Technology Stack 技术架构</h1>
+  </div>
+  <div class="content">
+    <div class="tech-stack">
+      <div class="tech-item">
+        <div class="tech-icon"><p>H5</p></div>
+        <div class="tech-info">
+          <h3>Pure HTML5 + CSS3 + JavaScript</h3>
+          <p>纯前端技术栈，无需后端服务器</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon"><p>🔊</p></div>
+        <div class="tech-info">
+          <h3>Web Speech API</h3>
+          <p>原生语音合成，支持中英双语</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon"><p>📱</p></div>
+        <div class="tech-info">
+          <h3>Responsive Design</h3>
+          <p>自适应布局，完美适配iPad</p>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon"><p>🖼</p></div>
+        <div class="tech-info">
+          <h3>Twemoji Icons</h3>
+          <p>Twitter开源emoji，跨平台一致显示</p>
+        </div>
+      </div>
+    </div>
+    <div class="advantages">
+      <div class="adv-card">
+        <h3>Technical Advantages</h3>
+        <ul>
+          <li>Zero server cost - runs entirely in browser</li>
+          <li>Works offline after initial load</li>
+          <li>No app store approval needed</li>
+          <li>Cross-platform compatible</li>
+          <li>Easy to update and maintain</li>
+          <li>Open source friendly</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

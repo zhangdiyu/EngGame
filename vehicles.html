@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Vehicles - 交通工具学习</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    /* 统计信息 */
+    .stats-bar {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 15px 25px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-around;
+      color: white;
+      font-weight: bold;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* 类别标签导航 */
+    .category-nav {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px 0;
+      margin-bottom: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tab {
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 25px;
+      padding: 12px 20px;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .category-tab.active {
+      background: white;
+      color: #667eea;
+      border-color: white;
+    }
+
+    .category-tab:active {
+      transform: scale(0.95);
+    }
+
+    .category-tab .tab-emoji {
+      margin-right: 5px;
+    }
+
+    /* 分类区域 */
+    .category-section {
+      margin-bottom: 30px;
+    }
+
+    .category-title {
+      color: white;
+      font-size: 20px;
+      margin-bottom: 15px;
+      padding-left: 10px;
+      border-left: 4px solid rgba(255,255,255,0.8);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .category-title .title-emoji {
+      font-size: 24px;
+    }
+
+    /* 车辆卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 15px;
+    }
+
+    .vehicle-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vehicle-card:active {
+      transform: scale(0.95);
+    }
+
+    .vehicle-card.playing {
+      animation: cardPulse 0.5s ease-out;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5);
+    }
+
+    .vehicle-emoji {
+      font-size: 55px;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    .vehicle-image {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .vehicle-placeholder {
+      width: 60px;
+      height: 60px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      color: #ccc;
+      font-size: 24px;
+    }
+
+    .vehicle-name {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 3px;
+      word-break: break-word;
+    }
+
+    .vehicle-chinese {
+      font-size: 13px;
+      color: #666;
+    }
+
+    @keyframes cardPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* 搜索框 */
+    .search-box {
+      background: white;
+      border-radius: 50px;
+      padding: 15px 25px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box i {
+      color: #999;
+      font-size: 20px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      font-size: 16px;
+      flex: 1;
+      background: transparent;
+    }
+
+    /* 没有结果提示 */
+    .no-results {
+      text-align: center;
+      padding: 50px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .no-results i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">🚗</div>
+      <h1 class="page-title">Learn Vehicles</h1>
+    </div>
+
+    <!-- 统计信息 -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number" id="totalCount">0</span>
+        <span class="stat-label">Total 总数</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="categoryCount">0</span>
+        <span class="stat-label">Categories 分类</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="emojiCount">0</span>
+        <span class="stat-label">With Image</span>
+      </div>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="search-box">
+      <i class="fa-solid fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search vehicles... 搜索交通工具">
+    </div>
+
+    <!-- 类别导航 -->
+    <div class="category-nav" id="categoryNav">
+      <!-- 通过JS生成 -->
+    </div>
+
+    <!-- 车辆列表 -->
+    <div id="vehiclesList">
+      <!-- 通过JS生成 -->
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+
+  <script src="js/speech.js"></script>
+  <script src="js/vehicles-data.js"></script>
+  <script>
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    // 初始化
+    function init() {
+      updateStats();
+      renderCategoryNav();
+      renderVehicles();
+      bindEvents();
+    }
+
+    // 更新统计
+    function updateStats() {
+      const all = VehiclesData.getAllVehicles();
+      const categories = VehiclesData.getCategories();
+      const withImages = VehiclesData.getVehiclesWithImages();
+
+      document.getElementById('totalCount').textContent = all.length;
+      document.getElementById('categoryCount').textContent = categories.length;
+      document.getElementById('emojiCount').textContent = withImages.length;
+    }
+
+    // 渲染类别导航
+    function renderCategoryNav() {
+      const nav = document.getElementById('categoryNav');
+      const categories = VehiclesData.getCategories();
+
+      // 添加"全部"选项
+      nav.innerHTML = `
+        <button class="category-tab active" data-category="all">
+          <span class="tab-emoji">🎯</span>All
+        </button>
+      `;
+
+      categories.forEach(cat => {
+        const tab = document.createElement('button');
+        tab.className = 'category-tab';
+        tab.dataset.category = cat.key;
+        tab.innerHTML = `<span class="tab-emoji">${cat.emoji}</span>${cat.chinese}`;
+        nav.appendChild(tab);
+      });
+    }
+
+    // 渲染车辆列表
+    function renderVehicles() {
+      const container = document.getElementById('vehiclesList');
+      const categories = VehiclesData.getCategories();
+      let html = '';
+
+      categories.forEach(cat => {
+        // 如果选择了特定类别，只显示该类别
+        if (currentCategory !== 'all' && currentCategory !== cat.key) {
+          return;
+        }
+
+        // 过滤搜索
+        let vehicles = cat.data;
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          vehicles = vehicles.filter(v =>
+            v.name.toLowerCase().includes(query) ||
+            v.chinese.includes(query)
+          );
+        }
+
+        if (vehicles.length === 0) return;
+
+        html += `
+          <div class="category-section">
+            <h2 class="category-title">
+              <span class="title-emoji">${cat.emoji}</span>
+              ${cat.name} ${cat.chinese}
+              <span style="font-size: 14px; opacity: 0.7;">(${vehicles.length})</span>
+            </h2>
+            <div class="card-grid">
+        `;
+
+        vehicles.forEach(vehicle => {
+          // 优先显示图片，如果图片加载失败则显示emoji，都没有则显示占位符
+          let display;
+          if (vehicle.image) {
+            const fallback = vehicle.emoji
+              ? `this.outerHTML='<div class=\\'vehicle-emoji\\'>${vehicle.emoji}</div>'`
+              : `this.outerHTML='<div class=\\'vehicle-placeholder\\'><i class=\\'fa-solid fa-car\\'></i></div>'`;
+            display = `<img class="vehicle-image" src="images/vehicles/${vehicle.image}" alt="${vehicle.name}" onerror="${fallback}">`;
+          } else if (vehicle.emoji) {
+            display = `<div class="vehicle-emoji">${vehicle.emoji}</div>`;
+          } else {
+            display = `<div class="vehicle-placeholder"><i class="fa-solid fa-car"></i></div>`;
+          }
+
+          html += `
+            <div class="vehicle-card" onclick="playVehicle('${vehicle.name}', '${vehicle.chinese}', this)">
+              ${display}
+              <div class="vehicle-name">${vehicle.name}</div>
+              <div class="vehicle-chinese">${vehicle.chinese}</div>
+            </div>
+          `;
+        });
+
+        html += '</div></div>';
+      });
+
+      if (!html) {
+        html = `
+          <div class="no-results">
+            <i class="fa-solid fa-search"></i>
+            <div>No results found</div>
+            <div>没有找到结果</div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // 播放发音
+    async function playVehicle(name, chinese, element) {
+      element.classList.add('playing');
+      await SpeechModule.speakBilingual(name, chinese);
+      element.classList.remove('playing');
+    }
+
+    // 绑定事件
+    function bindEvents() {
+      // 类别切换
+      document.getElementById('categoryNav').addEventListener('click', (e) => {
+        const tab = e.target.closest('.category-tab');
+        if (!tab) return;
+
+        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentCategory = tab.dataset.category;
+        renderVehicles();
+      });
+
+      // 搜索
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        renderVehicles();
+      });
+    }
+
+    // 启动
+    init();
+  </script>
+</body>
+</html>

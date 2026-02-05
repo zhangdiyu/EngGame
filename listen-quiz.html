@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Listen & Choose - 听音选图</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .quiz-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      padding-bottom: 120px;
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .quiz-header-icon {
+      font-size: 50px;
+      margin-bottom: 10px;
+    }
+
+    .quiz-title {
+      font-size: 26px;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* 分数和进度 */
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 10px 20px;
+      margin-bottom: 25px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-item i {
+      font-size: 20px;
+    }
+
+    /* 图片展示区 */
+    .picture-card {
+      background: white;
+      border-radius: 30px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .picture-display {
+      font-size: 120px;
+      margin-bottom: 15px;
+      line-height: 1;
+    }
+
+    .picture-display img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+    }
+
+    .picture-hint {
+      font-size: 18px;
+      color: #888;
+    }
+
+    /* 选项区域 */
+    .options-section {
+      margin-bottom: 25px;
+    }
+
+    .options-title {
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .option-btn {
+      background: white;
+      border-radius: 20px;
+      padding: 20px 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 4px solid transparent;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .option-btn:active {
+      transform: scale(0.95);
+    }
+
+    .option-btn.selected {
+      border-color: #3498db;
+      background: #e8f4fc;
+    }
+
+    .option-btn.playing {
+      animation: optionPulse 0.5s ease-out;
+    }
+
+    .option-icon {
+      font-size: 40px;
+      margin-bottom: 8px;
+      color: #3498db;
+    }
+
+    .option-label {
+      font-size: 14px;
+      color: #666;
+      font-weight: bold;
+    }
+
+    .option-number {
+      width: 30px;
+      height: 30px;
+      background: #3498db;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes optionPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* 提交按钮 */
+    .submit-section {
+      text-align: center;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 20px 60px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+      transition: all 0.2s;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.95);
+    }
+
+    .submit-btn:disabled {
+      background: #bdc3c7;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* 结果显示 */
+    .result-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .result-overlay.show {
+      display: flex;
+    }
+
+    .result-card {
+      background: white;
+      border-radius: 30px;
+      padding: 50px;
+      text-align: center;
+      max-width: 350px;
+      width: 90%;
+      animation: resultIn 0.3s ease-out;
+    }
+
+    .result-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    .result-icon.correct {
+      color: #2ecc71;
+    }
+
+    .result-icon.wrong {
+      color: #e74c3c;
+    }
+
+    .result-text {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .result-text.correct {
+      color: #2ecc71;
+    }
+
+    .result-text.wrong {
+      color: #e74c3c;
+    }
+
+    .result-answer {
+      font-size: 20px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .result-answer .emoji {
+      font-size: 40px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .result-answer .emoji img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .next-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 50px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .next-btn:active {
+      background: #2980b9;
+    }
+
+    @keyframes resultIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* 类别选择器 */
+    .category-tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px 0;
+      margin-bottom: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .category-tab {
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 25px;
+      padding: 10px 20px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .category-tab.active {
+      background: white;
+      color: #667eea;
+      border-color: white;
+    }
+
+    .category-tab:active {
+      transform: scale(0.95);
+    }
+
+    /* 游戏结束 */
+    .game-over {
+      text-align: center;
+      padding: 50px;
+    }
+
+    .game-over-icon {
+      font-size: 100px;
+      margin-bottom: 20px;
+    }
+
+    .game-over-title {
+      font-size: 36px;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .game-over-score {
+      font-size: 24px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 30px;
+    }
+
+    .restart-btn {
+      background: white;
+      color: #667eea;
+      border: none;
+      border-radius: 50px;
+      padding: 20px 50px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <div class="quiz-header-icon">🎧</div>
+      <h1 class="quiz-title">Listen & Choose 听音选图</h1>
+    </div>
+
+    <!-- 类别选择 -->
+    <div class="category-tabs" id="categoryTabs">
+      <button class="category-tab active" data-category="all">🎯 All</button>
+      <button class="category-tab" data-category="vehicles">🚗 Vehicles</button>
+      <button class="category-tab" data-category="animals">🐾 Animals</button>
+      <button class="category-tab" data-category="colors">🎨 Colors</button>
+      <button class="category-tab" data-category="letters">🔤 Letters</button>
+    </div>
+
+    <!-- 分数和进度 -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <i class="fa-solid fa-star"></i>
+        <span id="scoreDisplay">0</span>
+      </div>
+      <div class="stat-item">
+        <i class="fa-solid fa-check-circle"></i>
+        <span id="correctCount">0</span>/<span id="totalCount">0</span>
+      </div>
+    </div>
+
+    <!-- 图片展示 -->
+    <div class="picture-card">
+      <div class="picture-display" id="pictureDisplay">🚗</div>
+      <div class="picture-hint">这是什么？ What is this?</div>
+    </div>
+
+    <!-- 选项区域 -->
+    <div class="options-section">
+      <div class="options-title">
+        <i class="fa-solid fa-volume-high"></i> 点击听发音，选择正确答案
+      </div>
+      <div class="options-grid" id="optionsGrid">
+        <!-- 选项将通过JS生成 -->
+      </div>
+    </div>
+
+    <!-- 提交按钮 -->
+    <div class="submit-section">
+      <button class="submit-btn" id="submitBtn" disabled>
+        <i class="fa-solid fa-check"></i> Submit 提交
+      </button>
+    </div>
+  </div>
+
+  <!-- 结果弹窗 -->
+  <div class="result-overlay" id="resultOverlay">
+    <div class="result-card">
+      <div class="result-icon" id="resultIcon">
+        <i class="fa-solid fa-check-circle"></i>
+      </div>
+      <div class="result-text" id="resultText">Correct!</div>
+      <div class="result-answer" id="resultAnswer">
+        <span class="emoji">🚗</span>
+        Car - 汽车
+      </div>
+      <button class="next-btn" id="nextBtn">
+        Next <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+
+  <script src="js/speech.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/vehicles-data.js"></script>
+  <script>
+    const ListenQuiz = {
+      // 状态
+      currentCategory: 'all',
+      currentQuestion: null,
+      selectedOption: null,
+      score: 0,
+      correctCount: 0,
+      totalCount: 0,
+
+      // DOM元素
+      elements: {},
+
+      init() {
+        this.elements = {
+          pictureDisplay: document.getElementById('pictureDisplay'),
+          optionsGrid: document.getElementById('optionsGrid'),
+          submitBtn: document.getElementById('submitBtn'),
+          resultOverlay: document.getElementById('resultOverlay'),
+          resultIcon: document.getElementById('resultIcon'),
+          resultText: document.getElementById('resultText'),
+          resultAnswer: document.getElementById('resultAnswer'),
+          nextBtn: document.getElementById('nextBtn'),
+          scoreDisplay: document.getElementById('scoreDisplay'),
+          correctCount: document.getElementById('correctCount'),
+          totalCount: document.getElementById('totalCount'),
+          categoryTabs: document.querySelectorAll('.category-tab')
+        };
+
+        this.bindEvents();
+        this.loadQuestion();
+      },
+
+      bindEvents() {
+        // 提交按钮
+        this.elements.submitBtn.addEventListener('click', () => this.submitAnswer());
+
+        // 下一题按钮
+        this.elements.nextBtn.addEventListener('click', () => {
+          this.elements.resultOverlay.classList.remove('show');
+          this.loadQuestion();
+        });
+
+        // 类别切换
+        this.elements.categoryTabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            this.elements.categoryTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            this.currentCategory = tab.dataset.category;
+            this.loadQuestion();
+          });
+        });
+      },
+
+      /**
+       * 获取题目数据
+       */
+      getQuestionData() {
+        let pool = [];
+        const category = this.currentCategory;
+
+        if (category === 'all' || category === 'vehicles') {
+          pool = pool.concat(VehiclesData.getVehiclesWithImages().map(v => ({
+            ...v, type: 'vehicle'
+          })));
+        }
+        if (category === 'all' || category === 'animals') {
+          pool = pool.concat(LearningData.animals.map(a => ({
+            name: a.name, chinese: a.chinese, emoji: a.emoji, type: 'animal'
+          })));
+        }
+        if (category === 'all' || category === 'colors') {
+          pool = pool.concat(LearningData.colors.map(c => ({
+            name: c.name, chinese: c.chinese, emoji: c.emoji, type: 'color'
+          })));
+        }
+        if (category === 'all' || category === 'letters') {
+          pool = pool.concat(LearningData.letters.map(l => ({
+            name: l.word, chinese: l.chinese, emoji: l.emoji, type: 'letter'
+          })));
+        }
+
+        // 随机选择
+        const shuffled = pool.sort(() => Math.random() - 0.5);
+        const correct = shuffled[0];
+        const options = shuffled.slice(0, 3).sort(() => Math.random() - 0.5);
+
+        return { correct, options };
+      },
+
+      loadQuestion() {
+        this.selectedOption = null;
+        this.elements.submitBtn.disabled = true;
+
+        // 获取题目
+        this.currentQuestion = this.getQuestionData();
+        const { correct, options } = this.currentQuestion;
+
+        // 显示图片（优先图片，失败则显示emoji）
+        if (correct.image) {
+          const fallback = correct.emoji ? `this.parentElement.textContent='${correct.emoji}'` : '';
+          this.elements.pictureDisplay.innerHTML = `<img src="images/vehicles/${correct.image}" alt="${correct.name}" onerror="${fallback}">`;
+        } else if (correct.emoji) {
+          this.elements.pictureDisplay.textContent = correct.emoji;
+        } else {
+          this.elements.pictureDisplay.innerHTML = '<i class="fa-solid fa-car" style="font-size:80px;color:#ccc;"></i>';
+        }
+
+        // 渲染选项
+        this.elements.optionsGrid.innerHTML = '';
+        options.forEach((item, index) => {
+          const btn = document.createElement('div');
+          btn.className = 'option-btn';
+          btn.dataset.index = index;
+          btn.innerHTML = `
+            <div class="option-number">${index + 1}</div>
+            <div class="option-icon"><i class="fa-solid fa-volume-high"></i></div>
+            <div class="option-label">选项 ${index + 1}</div>
+          `;
+
+          btn.addEventListener('click', () => this.playAndSelect(btn, item, index));
+          this.elements.optionsGrid.appendChild(btn);
+        });
+      },
+
+      async playAndSelect(btn, item, index) {
+        // 播放发音
+        btn.classList.add('playing');
+        await SpeechModule.speak(item.name, { rate: 0.7 });
+        btn.classList.remove('playing');
+
+        // 选择此选项
+        document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        this.selectedOption = index;
+        this.elements.submitBtn.disabled = false;
+      },
+
+      submitAnswer() {
+        if (this.selectedOption === null) return;
+
+        const { correct, options } = this.currentQuestion;
+        const selected = options[this.selectedOption];
+        const isCorrect = selected.name === correct.name;
+
+        this.totalCount++;
+        this.elements.totalCount.textContent = this.totalCount;
+
+        if (isCorrect) {
+          this.correctCount++;
+          this.score += 10;
+          this.elements.correctCount.textContent = this.correctCount;
+          this.elements.scoreDisplay.textContent = this.score;
+
+          // 显示正确结果
+          this.elements.resultIcon.innerHTML = '<i class="fa-solid fa-check-circle"></i>';
+          this.elements.resultIcon.className = 'result-icon correct';
+          this.elements.resultText.textContent = 'Correct! 正确!';
+          this.elements.resultText.className = 'result-text correct';
+
+          SpeechModule.speakEncouragement();
+        } else {
+          // 显示错误结果
+          this.elements.resultIcon.innerHTML = '<i class="fa-solid fa-times-circle"></i>';
+          this.elements.resultIcon.className = 'result-icon wrong';
+          this.elements.resultText.textContent = 'Wrong! 错误!';
+          this.elements.resultText.className = 'result-text wrong';
+
+          SpeechModule.speakTryAgain();
+        }
+
+        // 显示正确答案
+        let displayContent;
+        if (correct.image) {
+          const fallback = correct.emoji ? `this.outerHTML='${correct.emoji}'` : '';
+          displayContent = `<img src="images/vehicles/${correct.image}" alt="${correct.name}" onerror="${fallback}">`;
+        } else {
+          displayContent = correct.emoji || '';
+        }
+        this.elements.resultAnswer.innerHTML = `
+          <span class="emoji">${displayContent}</span>
+          ${correct.name} - ${correct.chinese}
+        `;
+
+        this.elements.resultOverlay.classList.add('show');
+      }
+    };
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      ListenQuiz.init();
+    });
+  </script>
+</body>
+</html>

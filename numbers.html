@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>123 - 数字学习</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .number-card {
+      min-height: 180px;
+    }
+
+    .card-number {
+      font-size: 70px;
+      font-weight: bold;
+      color: #2c3e50;
+      line-height: 1;
+    }
+
+    .dots-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 10px;
+      max-width: 100px;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      background: #3498db;
+      border-radius: 50%;
+    }
+
+    .card-word {
+      font-size: 18px;
+      color: #666;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">🔢</div>
+      <h1 class="page-title">Learn Numbers</h1>
+    </div>
+
+    <div class="card-grid" id="numberGrid">
+      <!-- 数字卡片将通过JS生成 -->
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+
+  <script src="js/speech.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    const numberGrid = document.getElementById('numberGrid');
+
+    // 生成数字卡片
+    function renderNumbers() {
+      LearningData.numbers.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'card number-card';
+
+        // 生成圆点
+        let dotsHtml = '';
+        for (let i = 0; i < item.dots; i++) {
+          dotsHtml += '<div class="dot"></div>';
+        }
+
+        card.innerHTML = `
+          <div class="card-number">${item.number}</div>
+          <div class="dots-container">${dotsHtml}</div>
+          <div class="card-word">${item.word}</div>
+        `;
+
+        card.addEventListener('click', () => {
+          // 添加活跃状态
+          card.classList.add('active');
+          setTimeout(() => card.classList.remove('active'), 300);
+
+          // 播放发音
+          SpeechModule.speakNumber(item.word);
+        });
+
+        numberGrid.appendChild(card);
+      });
+    }
+
+    // 初始化
+    renderNumbers();
+  </script>
+</body>
+</html>

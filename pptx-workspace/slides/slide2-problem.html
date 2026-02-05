@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html { background: #ffffff; }
+body {
+  width: 720pt; height: 405pt; margin: 0; padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #f8f9fa;
+}
+.container {
+  width: 100%; height: 100%;
+  padding: 30pt 40pt;
+  box-sizing: border-box;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12pt;
+  margin-bottom: 25pt;
+}
+.header-icon {
+  width: 40pt; height: 40pt;
+  background: #e74c3c;
+  border-radius: 10pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-icon p {
+  color: #ffffff;
+  font-size: 20pt;
+  margin: 0;
+}
+h1 {
+  color: #2c3e50;
+  font-size: 28pt;
+  margin: 0;
+}
+.content {
+  display: flex;
+  gap: 30pt;
+}
+.left-col {
+  flex: 1;
+}
+.problem-card {
+  background: #ffffff;
+  border-radius: 15pt;
+  padding: 20pt;
+  margin-bottom: 15pt;
+  border-left: 5pt solid #e74c3c;
+  box-shadow: 0 2pt 8pt rgba(0,0,0,0.08);
+}
+.problem-card h3 {
+  color: #e74c3c;
+  font-size: 14pt;
+  margin: 0 0 8pt 0;
+}
+.problem-card p {
+  color: #555;
+  font-size: 12pt;
+  margin: 0;
+  line-height: 1.5;
+}
+.right-col {
+  width: 220pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.stat-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #667eea;
+  border-radius: 15pt;
+  padding: 25pt;
+  text-align: center;
+}
+.stat-box h2 {
+  color: #ffffff;
+  font-size: 36pt;
+  margin: 0 0 8pt 0;
+}
+.stat-box p {
+  color: rgba(255,255,255,0.9);
+  font-size: 13pt;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header-icon"><p>!</p></div>
+    <h1>Market Pain Points 市场痛点</h1>
+  </div>
+  <div class="content">
+    <div class="left-col">
+      <div class="problem-card">
+        <h3>Learning Apps Too Complex</h3>
+        <p>现有英语App操作复杂，3岁幼儿无法独立使用，需要家长全程陪同</p>
+      </div>
+      <div class="problem-card">
+        <h3>Content Not Age-Appropriate</h3>
+        <p>内容设计偏大龄化，不适合学龄前不识字的幼儿认知特点</p>
+      </div>
+      <div class="problem-card">
+        <h3>Lack of Bilingual Support</h3>
+        <p>缺乏中英双语语音支持，幼儿难以建立语言关联</p>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="stat-box">
+        <h2>85%</h2>
+        <p>of parents want better<br/>English learning tools<br/>for toddlers</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
