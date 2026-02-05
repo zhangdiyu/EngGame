@@ -31,22 +31,25 @@
 
     .category-selector {
       display: flex;
-      justify-content: center;
-      gap: 15px;
+      gap: 10px;
       margin-bottom: 30px;
-      flex-wrap: wrap;
+      overflow-x: auto;
+      padding: 10px 0;
+      -webkit-overflow-scrolling: touch;
     }
 
     .category-btn {
-      padding: 15px 25px;
+      flex-shrink: 0;
+      padding: 12px 20px;
       border-radius: 50px;
-      border: 3px solid white;
-      background: transparent;
+      border: 2px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.2);
       color: white;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s;
+      white-space: nowrap;
     }
 
     .category-btn.active {
@@ -245,21 +248,28 @@
 
     <!-- 类别选择 -->
     <div class="category-selector">
-      <button class="category-btn active" data-category="letters">
-        <i class="fa-solid fa-font"></i> ABC
-      </button>
-      <button class="category-btn" data-category="numbers">
-        <i class="fa-solid fa-calculator"></i> 123
-      </button>
-      <button class="category-btn" data-category="colors">
-        <i class="fa-solid fa-palette"></i> Colors
-      </button>
-      <button class="category-btn" data-category="animals">
-        <i class="fa-solid fa-paw"></i> Animals
-      </button>
-      <button class="category-btn" data-category="vehicles">
-        <i class="fa-solid fa-car"></i> Vehicles
-      </button>
+      <button class="category-btn active" data-category="all" data-voice="All">🎯 All</button>
+      <button class="category-btn" data-category="fruits" data-voice="Fruits">🍎 Fruits</button>
+      <button class="category-btn" data-category="vegetables" data-voice="Vegetables">🥕 Veggies</button>
+      <button class="category-btn" data-category="food" data-voice="Food">🍔 Food</button>
+      <button class="category-btn" data-category="drinks" data-voice="Drinks">🥤 Drinks</button>
+      <button class="category-btn" data-category="animals" data-voice="Animals">🐾 Animals</button>
+      <button class="category-btn" data-category="plants" data-voice="Plants">🌸 Plants</button>
+      <button class="category-btn" data-category="nature" data-voice="Nature">🌈 Nature</button>
+      <button class="category-btn" data-category="vehicles" data-voice="Vehicles">🚗 Vehicles</button>
+      <button class="category-btn" data-category="sports" data-voice="Sports">⚽ Sports</button>
+      <button class="category-btn" data-category="music" data-voice="Music">🎵 Music</button>
+      <button class="category-btn" data-category="clothing" data-voice="Clothing">👕 Clothing</button>
+      <button class="category-btn" data-category="buildings" data-voice="Buildings">🏠 Buildings</button>
+      <button class="category-btn" data-category="tools" data-voice="Tools">🔧 Tools</button>
+      <button class="category-btn" data-category="electronics" data-voice="Electronics">📱 Electronics</button>
+      <button class="category-btn" data-category="school" data-voice="School">📚 School</button>
+      <button class="category-btn" data-category="furniture" data-voice="Furniture">🛋️ Furniture</button>
+      <button class="category-btn" data-category="kitchen" data-voice="Kitchen">🍴 Kitchen</button>
+      <button class="category-btn" data-category="toys" data-voice="Toys">🧸 Toys</button>
+      <button class="category-btn" data-category="body" data-voice="Body">👋 Body</button>
+      <button class="category-btn" data-category="jobs" data-voice="Jobs">👨‍⚕️ Jobs</button>
+      <button class="category-btn" data-category="expressions" data-voice="Expressions">😊 Expressions</button>
     </div>
 
     <!-- 测验区域 -->
@@ -291,7 +301,175 @@
   </a>
 
   <script src="js/speech.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/game.js"></script>
+  <script src="js/words-data.js"></script>
+  <script src="js/vehicles-data.js"></script>
+  <script>
+    const QuizGame = {
+      currentCategory: 'all',
+      currentQuestion: null,
+      score: 0,
+      isAnswered: false,
+      elements: {},
+
+      init() {
+        this.elements = {
+          optionsGrid: document.getElementById('optionsGrid'),
+          playSoundBtn: document.getElementById('playSoundBtn'),
+          scoreDisplay: document.getElementById('scoreDisplay'),
+          rewardPopup: document.getElementById('rewardPopup'),
+          rewardText: document.getElementById('rewardText'),
+          categoryBtns: document.querySelectorAll('.category-btn')
+        };
+        this.bindEvents();
+        this.loadQuestion();
+      },
+
+      bindEvents() {
+        this.elements.playSoundBtn.addEventListener('click', () => this.playCurrentSound());
+        this.elements.categoryBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            this.elements.categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.currentCategory = btn.dataset.category;
+            // Play category name voice
+            const voiceText = btn.dataset.voice || btn.dataset.category;
+            SpeechModule.speak(voiceText);
+            this.loadQuestion();
+          });
+        });
+        this.elements.rewardPopup.addEventListener('click', () => {
+          this.hideReward();
+          this.loadQuestion();
+        });
+      },
+
+      getQuestionData() {
+        let pool = [];
+        const category = this.currentCategory;
+
+        // vehicles 分类
+        if (category === 'all' || category === 'vehicles') {
+          pool = pool.concat(VehiclesData.getVehiclesWithImages().map(v => ({
+            name: v.name, chinese: v.chinese, emoji: v.emoji, image: v.image, type: 'vehicle'
+          })));
+        }
+
+        // WordsData 分类
+        const cats = ['fruits', 'vegetables', 'food', 'drinks', 'animals', 'plants',
+          'nature', 'sports', 'music', 'clothing', 'buildings', 'tools',
+          'body', 'jobs', 'toys', 'expressions'];
+        cats.forEach(cat => {
+          if (category === 'all' || category === cat) {
+            const items = WordsData[cat] || [];
+            pool = pool.concat(items.map(item => ({
+              name: item.name, chinese: item.chinese, emoji: item.emoji, type: cat
+            })));
+          }
+        });
+
+        if (pool.length < 4) {
+          pool = WordsData.getAllWords().slice(0, 50);
+        }
+
+        const shuffled = pool.sort(() => Math.random() - 0.5);
+        const correct = shuffled[0];
+        const options = shuffled.slice(0, 4).sort(() => Math.random() - 0.5);
+        return { correct, options, category: this.currentCategory };
+      },
+
+      loadQuestion() {
+        this.isAnswered = false;
+        this.currentQuestion = this.getQuestionData();
+        this.renderOptions();
+        setTimeout(() => this.playCurrentSound(), 500);
+      },
+
+      renderOptions() {
+        const { options } = this.currentQuestion;
+        this.elements.optionsGrid.innerHTML = '';
+
+        options.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'option-card';
+
+          let display;
+          if (item.image) {
+            display = `<img src="images/vehicles/${item.image}" style="width:60px;height:60px;object-fit:contain;" onerror="this.style.display='none'">`;
+          } else if (item.emoji) {
+            display = `<span style="font-size:50px">${item.emoji}</span>`;
+          } else {
+            display = `<i class="fa-solid fa-question" style="font-size:40px;color:#ccc;"></i>`;
+          }
+
+          card.innerHTML = `
+            <div class="option-icon">${display}</div>
+            <div class="option-text">${item.name}</div>
+          `;
+          card.addEventListener('click', () => this.selectAnswer(card, item));
+          this.elements.optionsGrid.appendChild(card);
+        });
+      },
+
+      selectAnswer(card, selectedItem) {
+        if (this.isAnswered) return;
+        this.isAnswered = true;
+
+        const { correct } = this.currentQuestion;
+        const isCorrect = selectedItem.name === correct.name;
+
+        document.querySelectorAll('.option-card').forEach(c => c.classList.add('disabled'));
+
+        if (isCorrect) {
+          card.classList.add('correct');
+          this.score += 10;
+          this.elements.scoreDisplay.textContent = this.score;
+          SpeechModule.speakEncouragement();
+          setTimeout(() => this.showReward(), 800);
+        } else {
+          card.classList.add('wrong');
+          SpeechModule.speakTryAgain();
+          setTimeout(() => {
+            this.highlightCorrect();
+            this.isAnswered = false;
+            document.querySelectorAll('.option-card').forEach(c => {
+              if (!c.classList.contains('correct')) c.classList.remove('disabled');
+            });
+            card.classList.add('disabled');
+          }, 1000);
+        }
+      },
+
+      highlightCorrect() {
+        const { correct, options } = this.currentQuestion;
+        const cards = document.querySelectorAll('.option-card');
+        cards.forEach((card, i) => {
+          if (options[i].name === correct.name) {
+            card.classList.add('correct', 'disabled');
+          }
+        });
+      },
+
+      playCurrentSound() {
+        if (!this.currentQuestion) return;
+        const { correct } = this.currentQuestion;
+        this.elements.playSoundBtn.classList.add('playing');
+        SpeechModule.speak(correct.name).then(() => {
+          this.elements.playSoundBtn.classList.remove('playing');
+        });
+      },
+
+      showReward() {
+        const texts = ['Great Job! 🌟', 'Amazing! ⭐', 'Wonderful! 🎉', 'Excellent! 🏆', 'Super! 🌈'];
+        this.elements.rewardText.textContent = texts[Math.floor(Math.random() * texts.length)];
+        this.elements.rewardPopup.classList.add('show');
+      },
+
+      hideReward() {
+        this.elements.rewardPopup.classList.remove('show');
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => QuizGame.init());
+  </script>
 </body>
 </html>

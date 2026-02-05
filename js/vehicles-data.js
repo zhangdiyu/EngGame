@@ -93,6 +93,30 @@ const VehiclesData = {
     { name: 'Rowboat', chinese: '划艇', image: 'rowboat.svg', emoji: '🚣' },
   ],
 
+  // ==================== 工程车类 ====================
+  constructionVehicles: [
+    { name: 'Excavator', chinese: '挖掘机', image: 'construction-excavator.png', emoji: '🚧' },
+    { name: 'Bulldozer', chinese: '推土机', image: 'construction-bulldozer.png', emoji: '🚧' },
+    { name: 'Crane', chinese: '起重机', image: 'construction-crane.png', emoji: '🏗️' },
+    { name: 'Loader', chinese: '装载机', image: 'construction-loader.png', emoji: '🚧' },
+    { name: 'Roller', chinese: '压路机', image: 'construction-roller.png', emoji: '🚧' },
+    { name: 'Mixer', chinese: '搅拌车', image: 'construction-mixer.png', emoji: '🚧' },
+    { name: 'Forklift', chinese: '叉车', image: 'construction-forklift.png', emoji: '🚧' },
+    { name: 'Dump Truck', chinese: '自卸车', image: 'construction-dump-truck.png', emoji: '🚧' },
+    { name: 'Grader', chinese: '平地机', image: 'construction-grader.png', emoji: '🚧' },
+    { name: 'Backhoe', chinese: '反铲挖掘机', image: 'construction-backhoe.png', emoji: '🚧' },
+    { name: 'Compactor', chinese: '压实机', image: 'construction-compactor.png', emoji: '🚧' },
+    { name: 'Concrete Pump', chinese: '混凝土泵车', image: 'construction-concrete-pump.png', emoji: '🚧' },
+    { name: 'Cement Truck', chinese: '水泥车', image: 'construction-cement-truck.png', emoji: '🚧' },
+    { name: 'Trencher', chinese: '挖沟机', image: 'construction-trencher.png', emoji: '🚧' },
+    { name: 'Scraper', chinese: '铲运机', image: 'construction-scraper.png', emoji: '🚧' },
+    { name: 'Pile Driver', chinese: '打桩机', image: 'construction-pile-driver.png', emoji: '🚧' },
+    { name: 'Skid Steer', chinese: '滑移装载机', image: 'construction-skid-steer.png', emoji: '🚧' },
+    { name: 'Bobcat', chinese: '山猫装载机', image: 'construction-bobcat.png', emoji: '🚧' },
+    { name: 'Earth Mover', chinese: '土方机械', image: 'construction-earth-mover.png', emoji: '🚧' },
+    { name: 'Drilling Rig', chinese: '钻机', image: 'construction-drilling-rig.png', emoji: '🚧' },
+  ],
+
   // ==================== 交通相关 ====================
   trafficRelated: [
     { name: 'Anchor', chinese: '锚', emoji: '⚓' },
@@ -117,6 +141,7 @@ const VehiclesData = {
       ...this.railVehicles,
       ...this.aircraft,
       ...this.watercraft,
+      ...this.constructionVehicles,
       ...this.trafficRelated
     ];
   },
@@ -136,6 +161,7 @@ const VehiclesData = {
       { key: 'railVehicles', name: 'Trains', chinese: '火车', emoji: '🚂', data: this.railVehicles },
       { key: 'aircraft', name: 'Aircraft', chinese: '飞行器', emoji: '✈️', data: this.aircraft },
       { key: 'watercraft', name: 'Boats', chinese: '船只', emoji: '⛵', data: this.watercraft },
+      { key: 'constructionVehicles', name: 'Construction', chinese: '工程车', emoji: '🏗️', data: this.constructionVehicles },
       { key: 'trafficRelated', name: 'Others', chinese: '其他', emoji: '🎯', data: this.trafficRelated },
     ];
   },

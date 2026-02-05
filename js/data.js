@@ -36,16 +36,16 @@ const LearningData = {
 
   // 数字1-10
   numbers: [
-    { number: 1, word: 'One', icon: 'fa-1', dots: 1 },
-    { number: 2, word: 'Two', icon: 'fa-2', dots: 2 },
-    { number: 3, word: 'Three', icon: 'fa-3', dots: 3 },
-    { number: 4, word: 'Four', icon: 'fa-4', dots: 4 },
-    { number: 5, word: 'Five', icon: 'fa-5', dots: 5 },
-    { number: 6, word: 'Six', icon: 'fa-6', dots: 6 },
-    { number: 7, word: 'Seven', icon: 'fa-7', dots: 7 },
-    { number: 8, word: 'Eight', icon: 'fa-8', dots: 8 },
-    { number: 9, word: 'Nine', icon: 'fa-9', dots: 9 },
-    { number: 10, word: 'Ten', icon: 'fa-10', dots: 10 }
+    { number: 1, word: 'One', chinese: '一', emoji: '1️⃣', icon: 'fa-1', dots: 1 },
+    { number: 2, word: 'Two', chinese: '二', emoji: '2️⃣', icon: 'fa-2', dots: 2 },
+    { number: 3, word: 'Three', chinese: '三', emoji: '3️⃣', icon: 'fa-3', dots: 3 },
+    { number: 4, word: 'Four', chinese: '四', emoji: '4️⃣', icon: 'fa-4', dots: 4 },
+    { number: 5, word: 'Five', chinese: '五', emoji: '5️⃣', icon: 'fa-5', dots: 5 },
+    { number: 6, word: 'Six', chinese: '六', emoji: '6️⃣', icon: 'fa-6', dots: 6 },
+    { number: 7, word: 'Seven', chinese: '七', emoji: '7️⃣', icon: 'fa-7', dots: 7 },
+    { number: 8, word: 'Eight', chinese: '八', emoji: '8️⃣', icon: 'fa-8', dots: 8 },
+    { number: 9, word: 'Nine', chinese: '九', emoji: '9️⃣', icon: 'fa-9', dots: 9 },
+    { number: 10, word: 'Ten', chinese: '十', emoji: '🔟', icon: 'fa-10', dots: 10 }
   ],
 
   // 8种基础颜色（含中文）
@@ -76,8 +76,9 @@ const LearningData = {
     { name: 'Dragon', chinese: '龙', icon: 'fa-dragon', emoji: '🐲', color: '#e74c3c' }
   ],
 
-  // 交通工具（含中文）
+  // 交通工具（含中文）- 包含工程车
   vehicles: [
+    // 常见交通工具
     { name: 'Car', chinese: '汽车', emoji: '🚗', color: '#e74c3c' },
     { name: 'Bus', chinese: '公交车', emoji: '🚌', color: '#f39c12' },
     { name: 'Truck', chinese: '卡车', emoji: '🚚', color: '#3498db' },
@@ -93,7 +94,18 @@ const LearningData = {
     { name: 'Fire Truck', chinese: '消防车', emoji: '🚒', color: '#c0392b' },
     { name: 'Police Car', chinese: '警车', emoji: '🚓', color: '#2c3e50' },
     { name: 'Taxi', chinese: '出租车', emoji: '🚕', color: '#f1c40f' },
-    { name: 'Tractor', chinese: '拖拉机', emoji: '🚜', color: '#27ae60' }
+    { name: 'Tractor', chinese: '拖拉机', emoji: '🚜', color: '#27ae60' },
+    // 工程车
+    { name: 'Excavator', chinese: '挖掘机', emoji: '🚧', color: '#f39c12', image: 'construction-excavator.png' },
+    { name: 'Bulldozer', chinese: '推土机', emoji: '🚧', color: '#f39c12', image: 'construction-bulldozer.png' },
+    { name: 'Crane', chinese: '起重机', emoji: '🏗️', color: '#e67e22', image: 'construction-crane.png' },
+    { name: 'Loader', chinese: '装载机', emoji: '🚧', color: '#f39c12', image: 'construction-loader.png' },
+    { name: 'Roller', chinese: '压路机', emoji: '🚧', color: '#f39c12', image: 'construction-roller.png' },
+    { name: 'Mixer', chinese: '搅拌车', emoji: '🚧', color: '#3498db', image: 'construction-mixer.png' },
+    { name: 'Forklift', chinese: '叉车', emoji: '🚧', color: '#f39c12', image: 'construction-forklift.png' },
+    { name: 'Dump Truck', chinese: '自卸车', emoji: '🚧', color: '#e67e22', image: 'construction-dump-truck.png' },
+    { name: 'Drilling Rig', chinese: '钻机', emoji: '🚧', color: '#8b4513', image: 'construction-drilling-rig.png' },
+    { name: 'Concrete Pump', chinese: '混凝土泵车', emoji: '🚧', color: '#3498db', image: 'construction-concrete-pump.png' },
   ],
 
   /**

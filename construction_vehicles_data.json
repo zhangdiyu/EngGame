@@ -1,0 +1,147 @@
+[
+  {
+    "name": "roller",
+    "chinese": "压路机",
+    "filename": "construction-roller.png"
+  },
+  {
+    "name": "digger",
+    "chinese": "挖掘机",
+    "filename": "construction-digger.png"
+  },
+  {
+    "name": "loader",
+    "chinese": "装载机",
+    "filename": "construction-loader.png"
+  },
+  {
+    "name": "bulldozer",
+    "chinese": "推土机",
+    "filename": "construction-bulldozer.png"
+  },
+  {
+    "name": "crane",
+    "chinese": "起重机",
+    "filename": "construction-crane.png"
+  },
+  {
+    "name": "grader",
+    "chinese": "平地机",
+    "filename": "construction-grader.png"
+  },
+  {
+    "name": "backhoe",
+    "chinese": "反铲挖掘机",
+    "filename": "construction-backhoe.png"
+  },
+  {
+    "name": "compactor",
+    "chinese": "压实机",
+    "filename": "construction-compactor.png"
+  },
+  {
+    "name": "tractor",
+    "chinese": "拖拉机",
+    "filename": "construction-tractor.png"
+  },
+  {
+    "name": "construction vehicle",
+    "chinese": "工程车",
+    "filename": "construction-construction-vehicle.png"
+  },
+  {
+    "name": "dozer",
+    "chinese": "推土机",
+    "filename": "construction-dozer.png"
+  },
+  {
+    "name": "pile driver",
+    "chinese": "打桩机",
+    "filename": "construction-pile-driver.png"
+  },
+  {
+    "name": "construction equipment",
+    "chinese": "工程车",
+    "filename": "construction-construction-equipment.png"
+  },
+  {
+    "name": "skid steer",
+    "chinese": "滑移装载机",
+    "filename": "construction-skid-steer.png"
+  },
+  {
+    "name": "excavator",
+    "chinese": "挖掘机",
+    "filename": "construction-excavator.png"
+  },
+  {
+    "name": "scraper",
+    "chinese": "铲运机",
+    "filename": "construction-scraper.png"
+  },
+  {
+    "name": "mixer",
+    "chinese": "搅拌车",
+    "filename": "construction-mixer.png"
+  },
+  {
+    "name": "cement truck",
+    "chinese": "水泥车",
+    "filename": "construction-cement-truck.png"
+  },
+  {
+    "name": "bobcat",
+    "chinese": "山猫装载机",
+    "filename": "construction-bobcat.png"
+  },
+  {
+    "name": "concrete pump",
+    "chinese": "混凝土泵车",
+    "filename": "construction-concrete-pump.png"
+  },
+  {
+    "name": "piling",
+    "chinese": "打桩机",
+    "filename": "construction-piling.png"
+  },
+  {
+    "name": "dumper",
+    "chinese": "自卸车",
+    "filename": "construction-dumper.png"
+  },
+  {
+    "name": "road construction",
+    "chinese": "道路施工车",
+    "filename": "construction-road-construction.png"
+  },
+  {
+    "name": "trencher",
+    "chinese": "挖沟机",
+    "filename": "construction-trencher.png"
+  },
+  {
+    "name": "forklift",
+    "chinese": "叉车",
+    "filename": "construction-forklift.png"
+  },
+  {
+    "name": "dump truck",
+    "chinese": "自卸车",
+    "filename": "construction-dump-truck.png"
+  },
+  {
+    "name": "earth mover",
+    "chinese": "土方机械",
+    "filename": "construction-earth-mover.png"
+  },
+  {
+    "name": "drilling rig",
+    "chinese": "钻机",
+    "filename": "construction-drilling-rig.png"
+  },
+  {
+    "name": "drill",
+    "chinese": "钻机",
+    "filename": "construction-drill.png"
+  }
+]

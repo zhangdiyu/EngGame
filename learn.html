@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Learn Words - 单词学习</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    /* 搜索框 */
+    .search-box {
+      background: white;
+      border-radius: 50px;
+      padding: 12px 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box i {
+      color: #999;
+      font-size: 18px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      font-size: 16px;
+      flex: 1;
+      background: transparent;
+    }
+
+    /* 分类区域 */
+    .category-section {
+      margin-bottom: 20px;
+    }
+
+    .category-header {
+      color: white;
+      font-size: 18px;
+      margin-bottom: 12px;
+      padding: 10px 15px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .category-header:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .category-header .header-emoji {
+      font-size: 24px;
+    }
+
+    .category-header .header-count {
+      margin-left: auto;
+      font-size: 13px;
+      opacity: 0.8;
+      background: rgba(255,255,255,0.2);
+      padding: 3px 10px;
+      border-radius: 15px;
+    }
+
+    .category-header .toggle-icon {
+      font-size: 14px;
+      transition: transform 0.3s;
+    }
+
+    .category-header.collapsed .toggle-icon {
+      transform: rotate(-90deg);
+    }
+
+    .category-content {
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .category-content.collapsed {
+      max-height: 0 !important;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+      padding: 5px;
+    }
+
+    /* 通用卡片 */
+    .word-card {
+      background: white;
+      border-radius: 15px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .word-card:active {
+      transform: scale(0.95);
+    }
+
+    .word-card.playing {
+      animation: cardPulse 0.5s ease-out;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+    }
+
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+
+    .card-name {
+      font-size: 12px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 2px;
+      word-break: break-word;
+      line-height: 1.2;
+    }
+
+    .card-chinese {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .card-letter {
+      font-size: 20px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 2px;
+    }
+
+    /* 颜色卡片 */
+    .word-card.color-card {
+      border: 2px solid transparent;
+    }
+
+    @keyframes cardPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* 统计栏 */
+    .stats-bar {
+      background: rgba(255,255,255,0.2);
+      border-radius: 15px;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-around;
+      color: white;
+      font-weight: bold;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 22px;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    /* 没有结果 */
+    .no-results {
+      text-align: center;
+      padding: 50px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .no-results i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">📚</div>
+      <h1 class="page-title">Learn Words</h1>
+    </div>
+
+    <!-- 统计信息 -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number" id="totalCount">0</span>
+        <span class="stat-label">Words 单词</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="categoryCount">0</span>
+        <span class="stat-label">Categories 分类</span>
+      </div>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="search-box">
+      <i class="fa-solid fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search words... 搜索单词">
+    </div>
+
+    <!-- 所有分类内容 -->
+    <div id="contentArea">
+      <!-- 通过JS生成 -->
+    </div>
+  </div>
+
+  <a href="index.html" class="back-btn">
+    <i class="fa-solid fa-house"></i>
+    Home
+  </a>
+
+  <script src="js/speech.js"></script>
+  <script src="js/words-data.js"></script>
+  <script src="js/vehicles-data.js"></script>
+  <script>
+    let searchQuery = '';
+
+    // 判断颜色深浅
+    function isLightColor(hex) {
+      if (!hex) return true;
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness > 150;
+    }
+
+    // 初始化
+    function init() {
+      updateStats();
+      render();
+      bindEvents();
+    }
+
+    // 更新统计
+    function updateStats() {
+      // 计算总数：WordsData（不含vehicles）+ VehiclesData
+      const wordsCount = WordsData.getTotalCount() - (WordsData.vehicles?.length || 0);
+      const vehiclesCount = VehiclesData.getAllVehicles().length;
+      document.getElementById('totalCount').textContent = wordsCount + vehiclesCount;
+      document.getElementById('categoryCount').textContent = WordsData.getCategories().length;
+    }
+
+    // 渲染卡片内容
+    function renderCard(item, catKey) {
+      // 字母分类特殊处理
+      if (catKey === 'letters' && item.letter) {
+        return `
+          <div class="card-letter">${item.letter}</div>
+          <div class="card-icon">${item.emoji}</div>
+          <div class="card-name">${item.name}</div>
+          <div class="card-chinese">${item.chinese}</div>
+        `;
+      }
+      // 颜色分类
+      if (catKey === 'colors' && item.hex) {
+        const textColor = isLightColor(item.hex) ? '#333' : '#fff';
+        return `
+          <div class="card-icon">${item.emoji}</div>
+          <div class="card-name" style="color: ${textColor}">${item.name}</div>
+          <div class="card-chinese" style="color: ${textColor}; opacity: 0.8">${item.chinese}</div>
+        `;
+      }
+      // 交通工具分类 - 只显示图片，不显示emoji
+      if (catKey === 'vehicles') {
+        if (item.image) {
+          // 有图片只显示图片，失败时显示灰色图标
+          return `
+            <div class="card-icon"><img src="images/vehicles/${item.image}" alt="${item.name}" style="width:50px;height:50px;object-fit:contain;" onerror="this.style.display='none'"></div>
+            <div class="card-name">${item.name}</div>
+            <div class="card-chinese">${item.chinese || ''}</div>
+          `;
+        }
+        // 无图片的车辆不显示
+        return `
+          <div class="card-icon"><i class="fa-solid fa-car" style="font-size:30px;color:#ccc;"></i></div>
+          <div class="card-name">${item.name}</div>
+          <div class="card-chinese">${item.chinese || ''}</div>
+        `;
+      }
+      // 默认
+      return `
+        <div class="card-icon">${item.emoji || ''}</div>
+        <div class="card-name">${item.name}</div>
+        <div class="card-chinese">${item.chinese || ''}</div>
+      `;
+    }
+
+    // 渲染所有分类
+    function render() {
+      const container = document.getElementById('contentArea');
+      const categories = WordsData.getCategories();
+      let html = '';
+      let hasResults = false;
+
+      categories.forEach(cat => {
+        // vehicles 分类使用完整的 VehiclesData（包含图片）
+        let items = cat.key === 'vehicles'
+          ? VehiclesData.getAllVehicles()
+          : (WordsData[cat.key] || []);
+
+        // 搜索过滤
+        if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          items = items.filter(item => {
+            return (item.name && item.name.toLowerCase().includes(query)) ||
+                   (item.chinese && item.chinese.includes(query)) ||
+                   (item.letter && item.letter.toLowerCase().includes(query));
+          });
+        }
+
+        if (items.length === 0) return;
+        hasResults = true;
+
+        html += `
+          <div class="category-section">
+            <div class="category-header" onclick="toggleCategory('${cat.key}')">
+              <span class="header-emoji">${cat.emoji}</span>
+              <span>${cat.name} ${cat.chinese}</span>
+              <span class="header-count">${items.length}</span>
+              <i class="fa-solid fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="category-content" id="content-${cat.key}">
+              <div class="card-grid">
+        `;
+
+        items.forEach(item => {
+          const extraClass = cat.key === 'colors' ? 'color-card' : '';
+          const style = (cat.key === 'colors' && item.hex)
+            ? `background-color: ${item.hex}; border-color: ${item.hex};`
+            : '';
+
+          html += `
+            <div class="word-card ${extraClass}" style="${style}"
+                 onclick="playWord('${item.name}', '${item.chinese || ''}', this)">
+              ${renderCard(item, cat.key)}
+            </div>
+          `;
+        });
+
+        html += '</div></div></div>';
+      });
+
+      if (!hasResults) {
+        html = `
+          <div class="no-results">
+            <i class="fa-solid fa-search"></i>
+            <div>No results found</div>
+            <div>没有找到结果</div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // 切换分类展开/折叠
+    function toggleCategory(key) {
+      const header = event.currentTarget;
+      const content = document.getElementById(`content-${key}`);
+
+      header.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+    }
+
+    // 播放发音
+    async function playWord(name, chinese, element) {
+      element.classList.add('playing');
+      await SpeechModule.speakBilingual(name, chinese);
+      element.classList.remove('playing');
+    }
+
+    // 绑定事件
+    function bindEvents() {
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        render();
+      });
+    }
+
+    // 启动
+    init();
+  </script>
+</body>
+</html>
